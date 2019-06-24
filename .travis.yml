@@ -1,22 +1,15 @@
 sudo: required
 services:
-  - docker
-
+- docker
 before_install:
-  - docker build -t simhol/docker-react -f Dockerfile.dev .
-
+- docker build -t simhol/docker-react -f Dockerfile.dev .
 script:
-  - docker run -e CI=true simhol/docker-react npm run test -- --coverage
-
+- docker run -e CI=true simhol/docker-react npm run test -- --coverage
 deploy:
-  provider: elasticbeanstalk
-  region: "us-east-1"
-  app: "docker-react"
-  env: "DockerReact-env"
-  bucket_name: "elasticbeanstalk-us-east-1-911534394243"
-  bucket_path: "docker-react"
+  provider: heroku
+  app: docker-react-ragganx
   on:
     branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: "$AWS_SECRET_KEY"
+    repo: Raggan/docker-react
+  api_key:
+    secure: vyA4K+tuFfAHdB2+cFk1iI4E0UPv92LrfvnER4slF/qPYRqSe7CuHDv6jQ0X+42C68FizJ0HTEdjbBMztfKowhUD0fe8oCXMfZYX19FG1X6/ltYgZx6Z7/LgIRt6yacWStHgz9xD9XbIWTs57AZB7TfnLSE7WkyigBke8mcJwVAplwR6OHwP4pfdE1Y7u6WQzhXUDt9jkDbIvVUKIzAMcF155hG3oIlKU7qZPU8t+o3A6ZQ089gpvCERoebf6VXuTZNr19Xi8r8IYWvoF6nLFBf0chOoxXkQxcopTl+NcbkG4XoE+lBh4kvabivWk3uKfqH+pWuPnOcpGKmMTHDmvqvrWWcE7Lot+F2k9F/dbZgcUttEwyiglZ9NO9580Qan2223t/DveI4KZ/ITKlhJ4r7aB8RAVqnJDcpikJ9vZ8piQ26H8epGd+Wst5j8CuDaIOtCZgWxwFVMHbnnU07OZ+ZoUY/RS/GFzHyrgYMXHp2yHDZ6q8lJJcufchibiv5rGZHDpdUxQMjjyEe9QWIcdW8B7S4qzibr422232G/+MRT9GIWtRp7vwJK5Yb3ZIVGeGOx8QWc9Te4TdrVaA48EPFj/ViyeuC++dDVwiPAE3s4HMlEvUiReyTDmZ2TtK/Ej71j/mi9I7j4dROQzwUP+Zj26CTiTcxED9i9lxQEp3o=
